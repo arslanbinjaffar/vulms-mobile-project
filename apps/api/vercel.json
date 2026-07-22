@@ -1,8 +1,9 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
+  "outputDirectory": null,
   "installCommand": "cd ../.. && pnpm install",
-  "buildCommand": "pnpm typecheck && node ../../scripts/bundle-vercel-api.mjs",
+  "buildCommand": "pnpm typecheck && node ../../scripts/bundle-vercel-api.mjs && mkdir -p public",
   "rewrites": [
     {
       "source": "/(.*)",

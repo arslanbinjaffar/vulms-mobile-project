@@ -22,6 +22,26 @@ Then update:
 - [`apps/mobile/eas.json`](./apps/mobile/eas.json) → `env.EXPO_PUBLIC_API_URL` (preview + production)
 - [`apps/mobile/.env`](./apps/mobile/.env) (from `.env.example`) for local Expo pointing at prod API
 
+### GitHub Actions deploy
+
+Workflows: [`.github/workflows/vercel-production.yml`](./.github/workflows/vercel-production.yml) (push to `main`) and [`vercel-preview.yml`](./.github/workflows/vercel-preview.yml).
+
+Add these **GitHub repo secrets** (Settings → Secrets and variables → Actions):
+
+| Secret | Where to get it |
+|--------|-----------------|
+| `VERCEL_TOKEN` | [vercel.com/account/tokens](https://vercel.com/account/tokens) → Create |
+| `VERCEL_ORG_ID` | After `vercel link`, from `.vercel/project.json` → `orgId` |
+| `VERCEL_PROJECT_ID` | Same file → `projectId` |
+
+```bash
+npm i -g vercel
+cd /path/to/vu-lms
+vercel login
+vercel link   # pick existing vulms-mobile-project
+# then open .vercel/project.json for orgId + projectId
+```
+
 ### CLI alternative
 
 ```bash
@@ -39,6 +59,7 @@ vercel --prod
 - First request after idle can be a bit slow; usually faster than Render free sleep.
 - Local bundle check: `pnpm build:vercel-api` then `node -e "import('./api/index.js').then(m => console.log(!!m.GET))"`.
 - In Vercel **Settings → General**: Framework = Other / None. Root Directory blank or `apps/api`.
+- Clear **Output Directory** in Vercel (or leave empty) — this API has no static site; `vercel.json` sets `outputDirectory: null`.
 - After changing root `package.json` deps, run `pnpm install` and commit `pnpm-lock.yaml` before redeploy (Vercel uses a frozen lockfile).
 
 ### If Vercel is blocked

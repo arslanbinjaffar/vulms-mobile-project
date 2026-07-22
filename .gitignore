@@ -13,3 +13,4 @@ apps/api/dist
 api/index.js
 apps/api/api/index.js
 packages/shared/dist
+.vercel
