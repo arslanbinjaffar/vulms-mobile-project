@@ -14,13 +14,13 @@ importers:
       '@vu-lms/shared':
         specifier: workspace:*
         version: link:packages/shared
+      esbuild:
+        specifier: ^0.25.12
+        version: 0.25.12
       hono:
         specifier: ^4.8.3
         version: 4.12.31
     devDependencies:
-      esbuild:
-        specifier: ^0.25.12
-        version: 0.25.12
       turbo:
         specifier: ^2.5.4
         version: 2.10.5

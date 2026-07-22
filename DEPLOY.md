@@ -39,6 +39,7 @@ vercel --prod
 - First request after idle can be a bit slow; usually faster than Render free sleep.
 - Local bundle check: `pnpm build:vercel-api` then `node -e "import('./api/index.js').then(m => console.log(!!m.GET))"`.
 - In Vercel **Settings → General**: Framework = Other / None. Root Directory blank or `apps/api`.
+- After changing root `package.json` deps, run `pnpm install` and commit `pnpm-lock.yaml` before redeploy (Vercel uses a frozen lockfile).
 
 ### If Vercel is blocked
 
