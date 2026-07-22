@@ -17,11 +17,11 @@ Demo login: **bc230201247** / **password123**
 - `apps/mobile` — Expo Router app
 - `apps/api` — Hono REST API + seed data + VULMS bridge stub
 - `packages/shared` — Zod schemas and shared types
+- `api/` — Vercel serverless entry (free deploy)
 
 ## Free deploy (API + APK)
 
-See **[DEPLOY.md](./DEPLOY.md)** for:
+**Backend:** [Vercel Hobby](https://vercel.com) (no card) — see **[DEPLOY.md](./DEPLOY.md)**  
+**APK:** `eas build -p android --profile preview`
 
-1. Render free Docker deploy (`render.yaml` + `Dockerfile`)
-2. Setting `EXPO_PUBLIC_API_URL`
-3. Building a sideloadable Android APK with `eas build --profile preview`
+Render is optional (often requires a card). Prefer Vercel.

@@ -7,6 +7,16 @@ settings:
 importers:
 
   .:
+    dependencies:
+      '@vu-lms/api':
+        specifier: workspace:*
+        version: link:apps/api
+      '@vu-lms/shared':
+        specifier: workspace:*
+        version: link:packages/shared
+      hono:
+        specifier: ^4.8.3
+        version: 4.12.31
     devDependencies:
       turbo:
         specifier: ^2.5.4
@@ -5300,9 +5310,7 @@ snapshots:
       metro-runtime: 0.84.4
     transitivePeerDependencies:
       - '@babel/core'
-      - bufferutil
       - supports-color
-      - utf-8-validate
 
   '@react-native/normalize-colors@0.74.89': {}
 

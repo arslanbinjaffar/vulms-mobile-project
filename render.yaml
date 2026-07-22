@@ -1,3 +1,7 @@
+# Optional: Render often requires a credit card for free services.
+# Prefer Vercel instead — see DEPLOY.md and vercel.json.
+#
+# If you already have Render billing enabled, this blueprint still works.
 services:
   - type: web
     name: vu-lms-api

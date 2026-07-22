@@ -1,26 +1,45 @@
-# Free deploy: Render API + Android APK
+# Free deploy: Vercel API + Android APK
 
-## 1. Deploy backend (Render — free)
+Render often asks for a card. Use **Vercel Hobby** instead (no card for free hobby).
+
+## 1. Deploy backend (Vercel — free, no card)
 
 1. Push this repo to GitHub.
-2. Sign up at [render.com](https://render.com) and connect GitHub.
-3. **New → Blueprint** and select this repo (uses [`render.yaml`](./render.yaml)),  
-   **or** **New → Web Service** → Docker → root [`Dockerfile`](./Dockerfile).
-4. Plan: **Free**.
-5. After deploy, open `https://YOUR-SERVICE.onrender.com/health`  
+2. Sign up at [vercel.com](https://vercel.com) with GitHub (Hobby plan).
+3. **Add New Project** → import `vu-lms`.
+4. Leave **Root Directory** as the repo root (uses [`vercel.json`](./vercel.json) + [`api/index.ts`](./api/index.ts)).
+5. Framework Preset: **Other** (or leave default).
+6. Deploy.
+7. Open `https://YOUR-PROJECT.vercel.app/health`  
    Expected: `{ "ok": true, "service": "vu-lms-api" }`.
 
-Notes:
+Copy your URL (example: `https://vu-lms-xxxx.vercel.app`).
 
-- Free tier sleeps when idle; first request can take 30–60s.
-- Service listens on `0.0.0.0` and `PORT` (set by Render).
+Then update:
 
-Default service name in blueprint: `vu-lms-api` → URL like `https://vu-lms-api.onrender.com`.
+- [`apps/mobile/eas.json`](./apps/mobile/eas.json) → `env.EXPO_PUBLIC_API_URL` (preview + production)
+- [`apps/mobile/.env`](./apps/mobile/.env) (from `.env.example`) for local Expo pointing at prod API
 
-If your URL differs, update:
+### CLI alternative
 
-- [`apps/mobile/eas.json`](./apps/mobile/eas.json) `preview` / `production` → `env.EXPO_PUBLIC_API_URL`
-- [`apps/mobile/.env`](./apps/mobile/.env) for local Expo (copy from `.env.example`)
+```bash
+npm i -g vercel
+cd /path/to/vu-lms
+vercel login
+vercel
+# production:
+vercel --prod
+```
+
+### Notes
+
+- Serverless: in-memory seed data resets on cold starts (fine for demos).
+- First request after idle can be a bit slow; usually faster than Render free sleep.
+
+### If Vercel is blocked
+
+- **Cloudflare Workers** (free) — Hono-compatible; can be added later.
+- Keep local API + Expo Go for development (`pnpm dev:api`).
 
 ## 2. Point the app at the API
 
@@ -28,8 +47,10 @@ If your URL differs, update:
 cd apps/mobile
 cp .env.example .env
 # Edit .env:
-# EXPO_PUBLIC_API_URL=https://YOUR-SERVICE.onrender.com
+# EXPO_PUBLIC_API_URL=https://YOUR-PROJECT.vercel.app
 ```
+
+Also set the same URL in `eas.json` under `build.preview.env` and `build.production.env` before building the APK.
 
 ## 3. Build Android APK (Expo EAS — free tier)
 
@@ -40,18 +61,14 @@ npx eas build:configure   # once, if prompted
 npx eas build -p android --profile preview
 ```
 
-- Profile `preview` builds an **APK** (`buildType: "apk"`).
-- Download the APK from the Expo dashboard when the build finishes.
-- On the phone: allow install from unknown sources → open the APK.
+- Profile `preview` builds an **APK**.
+- Download from the Expo dashboard → install on Android (allow unknown sources).
 
-Demo login after install: `bc230201247` / `password123`
+Demo login: `bc230201247` / `password123`
 
 ## 4. Local check before APK
 
 ```bash
-# Terminal 1 — API
-pnpm dev:api
-
-# Terminal 2 — Expo (uses localhost / 10.0.2.2 unless .env is set)
+pnpm dev:api      # http://localhost:8788
 pnpm dev:mobile
 ```
