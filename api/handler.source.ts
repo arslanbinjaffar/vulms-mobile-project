@@ -1,17 +1,6 @@
-import { handle } from "hono/vercel";
+import { getRequestListener } from "@hono/node-server";
 import app from "../apps/api/src/app";
 
-export const config = {
-  runtime: "nodejs",
-  maxDuration: 60,
-};
-
-const handler = handle(app);
-
-export default handler;
-export const GET = handler;
-export const POST = handler;
-export const PUT = handler;
-export const PATCH = handler;
-export const DELETE = handler;
-export const OPTIONS = handler;
+// Node.js Vercel functions receive IncomingMessage/ServerResponse, not Web Request.
+// hono/vercel's handle() hangs in that mode; getRequestListener bridges correctly.
+export default getRequestListener(app.fetch);
