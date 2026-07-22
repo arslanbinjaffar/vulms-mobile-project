@@ -1,6 +1,5 @@
 import { handle } from "hono/vercel";
-// Generated at build time by scripts/bundle-vercel-api.mjs
-import app from "./_app.bundle.mjs";
+import app from "../apps/api/src/app";
 
 export const config = {
   runtime: "nodejs",

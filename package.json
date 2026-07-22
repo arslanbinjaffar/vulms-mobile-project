@@ -8,16 +8,18 @@
     "dev:mobile": "pnpm --filter @vu-lms/mobile start",
     "start:api": "pnpm --filter @vu-lms/api start",
     "build": "turbo run build",
+    "build:shared": "node scripts/bundle-shared.mjs",
     "build:vercel-api": "node scripts/bundle-vercel-api.mjs",
+    "postinstall": "node scripts/bundle-shared.mjs",
     "typecheck": "turbo run typecheck"
   },
   "dependencies": {
     "@vu-lms/api": "workspace:*",
     "@vu-lms/shared": "workspace:*",
+    "esbuild": "^0.25.12",
     "hono": "^4.8.3"
   },
   "devDependencies": {
-    "esbuild": "^0.25.12",
     "turbo": "^2.5.4",
     "typescript": "^5.8.3"
   }

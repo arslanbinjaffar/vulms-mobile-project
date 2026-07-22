@@ -8,12 +8,13 @@ Render often asks for a card. Use **Vercel Hobby** instead (no card for free hob
 2. Sign up at [vercel.com](https://vercel.com) with GitHub (Hobby plan).
 3. **Add New Project** → import `vu-lms`.
 4. Leave **Root Directory** as the repo root (uses [`vercel.json`](./vercel.json) + [`api/index.ts`](./api/index.ts)).
-5. Framework Preset: **Hono** (or **Other**).
-6. Deploy (build runs typecheck + `scripts/bundle-vercel-api.mjs` so the API is one self-contained bundle).
-7. Open `https://YOUR-PROJECT.vercel.app/health`  
+5. Framework Preset: **Other** (not Hono — Hono preset loads unbundled `apps/api` and breaks on `@vu-lms/shared`).
+6. **Root Directory**: leave as repo root (blank). Do **not** set it to `apps/api`.
+7. Deploy (build emits `api/index.js` + compiled `@vu-lms/shared`).
+8. Open `https://YOUR-PROJECT.vercel.app/health`  
    Expected: `{ "ok": true, "service": "vu-lms-api" }`.
 
-If you see `FUNCTION_INVOCATION_FAILED` / 500, redeploy after pulling the latest commit that includes the esbuild bundle step. Check **Deployments → Logs** for any remaining errors.
+If you still see `ERR_MODULE_NOT_FOUND` for `@vu-lms/shared/...index.ts`, the deploy is an old build or the project still uses the Hono preset / wrong Root Directory. Redeploy from latest main with Framework **Other**.
 
 Copy your URL (example: `https://vu-lms-xxxx.vercel.app`).
 
@@ -37,7 +38,8 @@ vercel --prod
 
 - Serverless: in-memory seed data resets on cold starts (fine for demos).
 - First request after idle can be a bit slow; usually faster than Render free sleep.
-- Local bundle check: `pnpm build:vercel-api` then `node -e "import('./api/_app.bundle.mjs').then(m => console.log(!!m.default))"`.
+- Local bundle check: `pnpm build:vercel-api` then `node -e "import('./api/index.js').then(m => console.log(!!m.GET))"`.
+- In Vercel project **Settings → General**: Framework = Other / None, Root Directory = `.` (repo root).
 
 ### If Vercel is blocked
 
