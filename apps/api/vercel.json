@@ -1,8 +1,8 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
-  "installCommand": "pnpm install",
-  "buildCommand": "pnpm --filter @vu-lms/api typecheck && pnpm --filter @vu-lms/api build:vercel",
+  "installCommand": "cd ../.. && pnpm install",
+  "buildCommand": "pnpm typecheck && node ../../scripts/bundle-vercel-api.mjs",
   "rewrites": [
     {
       "source": "/(.*)",
