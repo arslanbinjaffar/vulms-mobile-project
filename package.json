@@ -1,0 +1,17 @@
+{
+  "name": "vu-lms",
+  "private": true,
+  "packageManager": "pnpm@9.15.0",
+  "scripts": {
+    "dev": "turbo run dev --parallel",
+    "dev:api": "pnpm --filter @vu-lms/api dev",
+    "dev:mobile": "pnpm --filter @vu-lms/mobile start",
+    "start:api": "pnpm --filter @vu-lms/api start",
+    "build": "turbo run build",
+    "typecheck": "turbo run typecheck"
+  },
+  "devDependencies": {
+    "turbo": "^2.5.4",
+    "typescript": "^5.8.3"
+  }
+}

@@ -1,0 +1,13 @@
+node_modules
+.turbo
+.expo
+.git
+**/.env
+**/.env.*
+apps/mobile
+**/dist
+**/*.log
+.DS_Store
+README.md
+*.md
+!packages/shared/**

@@ -1,0 +1,12 @@
+node_modules
+.turbo
+dist
+.expo
+web-build
+*.log
+.env
+.env.local
+.DS_Store
+*.tsbuildinfo
+apps/mobile/.expo
+apps/api/dist
