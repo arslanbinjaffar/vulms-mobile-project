@@ -8,6 +8,7 @@
     "dev:mobile": "pnpm --filter @vu-lms/mobile start",
     "start:api": "pnpm --filter @vu-lms/api start",
     "build": "turbo run build",
+    "build:vercel-api": "node scripts/bundle-vercel-api.mjs",
     "typecheck": "turbo run typecheck"
   },
   "dependencies": {
@@ -16,6 +17,7 @@
     "hono": "^4.8.3"
   },
   "devDependencies": {
+    "esbuild": "^0.25.12",
     "turbo": "^2.5.4",
     "typescript": "^5.8.3"
   }

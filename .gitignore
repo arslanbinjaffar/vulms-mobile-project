@@ -10,3 +10,4 @@ web-build
 *.tsbuildinfo
 apps/mobile/.expo
 apps/api/dist
+api/_app.bundle.mjs
