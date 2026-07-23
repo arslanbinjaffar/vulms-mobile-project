@@ -80,19 +80,77 @@ Also set the same URL in `eas.json` under `build.preview.env` and `build.product
 
 ## 3. Build Android APK (Expo EAS — free tier)
 
+Standalone APK (no Metro). API URL is baked in via `eas.json` → `EXPO_PUBLIC_API_URL=https://vulms-mobile-project-api.vercel.app`.
+
 ```bash
 cd apps/mobile
-npx eas login
-npx eas build:configure   # once, if prompted
-npx eas build -p android --profile preview
+# set EXPO_TOKEN (or eas login)
+npx eas build -p android --profile preview --non-interactive
 ```
 
-- Profile `preview` builds an **APK**.
-- Download from the Expo dashboard → install on Android (allow unknown sources).
+- Profile `preview` builds an **APK** (not a dev client).
+- Latest build page: https://expo.dev/accounts/arslanjaffarpixelpks-team/projects/vu-lms/builds
+- Install on Android (allow unknown sources).
 
 Demo login: `bc230201247` / `password123`
 
-## 4. Local check before APK
+## 4. Admin panel (Next.js on Vercel)
+
+**Live admin:** https://vu-lms-admin.vercel.app  
+
+Admin UI lives in [`apps/admin`](./apps/admin). It talks to:
+
+`NEXT_PUBLIC_API_URL=https://vulms-mobile-project-api.vercel.app`
+
+### Admin login
+
+- Username: `admin`
+- Password: `admin123`
+
+### What admin manages
+
+Admin is the source of truth for all student-facing LMS data: students, teachers, courses (+ details), announcements, assignments, quizzes, GDBs, lessons, activities, grade book, progress, mail, challans, lectures, todos, study scheme, course selection, student services, teacher evaluation, notes moderation, contact, notice count.
+
+**Tracking:** activity feed, quiz attempts, login history, evaluation responses (written when students use the mobile app).
+
+UI colors match the mobile app (`navy` / `purple` / `blue` from `apps/mobile/src/theme.ts`).
+
+### Local
+
+```bash
+pnpm dev:api      # http://localhost:8788
+pnpm dev:admin    # http://localhost:3001
+```
+
+Copy [`apps/admin/.env.example`](./apps/admin/.env.example) → `.env.local` and point at local or prod API.
+
+### Redeploy admin
+
+Vercel project: `vu-lms-admin` (Root Directory `apps/admin`).
+
+```bash
+# from repo root, with VERCEL_ORG_ID + VERCEL_PROJECT_ID for vu-lms-admin
+vercel --prod
+```
+
+Or: **Add New Project** → import repo → Root `apps/admin` → Framework Next.js → env `NEXT_PUBLIC_API_URL` as above.
+
+### API + database
+
+- Current production API runs in **memory** mode until `DATABASE_URL` is set (seed data; cold starts can reset in-memory CRUD).
+- With Neon Postgres: set `DATABASE_URL` on the **API** Vercel project (`vulms-mobile-project-api`), then once:
+
+```bash
+cd apps/api
+pnpm db:push
+pnpm seed-db
+```
+
+Redeploy the API after setting `DATABASE_URL` so admin CRUD and student GETs persist.
+
+Demo student (mobile): `bc230201247` / `password123`
+
+## 5. Local check before APK
 
 ```bash
 pnpm dev:api      # http://localhost:8788

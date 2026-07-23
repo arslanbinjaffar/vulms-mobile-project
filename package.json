@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "turbo run dev --parallel",
     "dev:api": "pnpm --filter @vu-lms/api dev",
+    "dev:admin": "pnpm --filter @vu-lms/admin dev",
     "dev:mobile": "pnpm --filter @vu-lms/mobile start",
     "start:api": "pnpm --filter @vu-lms/api start",
     "build": "turbo run build",

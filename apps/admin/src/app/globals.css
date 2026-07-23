@@ -1,0 +1,168 @@
+@import "tailwindcss";
+
+:root {
+  --navy: #1b2a4a;
+  --purple: #6b4c9a;
+  --blue: #1e88e5;
+  --success: #2e7d32;
+  --danger: #c62828;
+  --warning: #f9a825;
+  --bg: #f5f5f5;
+  --panel: #ffffff;
+  --border: #e0e0e0;
+  --ink: #1a1a1a;
+  --muted: #666666;
+  --accent: #6b4c9a;
+  --accent-hover: #5a3d86;
+  --focus: #1e88e5;
+}
+
+@theme inline {
+  --color-background: var(--bg);
+  --color-foreground: var(--ink);
+  --font-sans: var(--font-sans);
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+input,
+select,
+textarea,
+button {
+  font: inherit;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.field label {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.field input,
+.field select,
+.field textarea {
+  border: 1px solid var(--border);
+  border-radius: 0.35rem;
+  background: #fff;
+  padding: 0.55rem 0.7rem;
+  color: var(--ink);
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: 2px solid color-mix(in oklab, var(--purple) 35%, transparent);
+  border-color: var(--purple);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.35rem;
+  padding: 0.55rem 0.95rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.btn-primary {
+  background: var(--purple);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--navy);
+  border: 1px solid var(--border);
+}
+
+.btn-ghost:hover {
+  background: #eef1f6;
+}
+
+.btn-danger {
+  background: transparent;
+  color: var(--danger);
+  border: 1px solid color-mix(in oklab, var(--danger) 35%, var(--border));
+}
+
+.btn-danger:hover {
+  background: color-mix(in oklab, var(--danger) 8%, white);
+}
+
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 0.4rem;
+  background: var(--panel);
+}
+
+table.data {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+table.data th,
+table.data td {
+  padding: 0.7rem 0.85rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+table.data th {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: #eef1f6;
+}
+
+table.data tr:last-child td {
+  border-bottom: none;
+}
+
+.panel {
+  border: 1px solid var(--border);
+  border-radius: 0.4rem;
+  background: var(--panel);
+  padding: 1rem 1.1rem;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb(27 42 74 / 45%);
+  padding: 1rem;
+}
+
+.modal {
+  width: min(36rem, 100%);
+  max-height: 90vh;
+  overflow: auto;
+  border-radius: 0.5rem;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 1.25rem;
+  box-shadow: 0 18px 50px rgb(27 42 74 / 22%);
+}

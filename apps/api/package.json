@@ -8,17 +8,23 @@
     "start": "tsx src/node.ts",
     "build": "tsc --noEmit",
     "typecheck": "tsc --noEmit",
-    "build:vercel": "node ../../scripts/bundle-vercel-api.mjs"
+    "build:vercel": "node ../../scripts/bundle-vercel-api.mjs",
+    "db:push": "drizzle-kit push",
+    "seed-db": "tsx src/db/seed-db.ts"
   },
   "dependencies": {
     "@hono/node-server": "^1.14.4",
     "@hono/zod-validator": "^0.7.0",
+    "@neondatabase/serverless": "^1.1.0",
     "@vu-lms/shared": "workspace:*",
+    "drizzle-orm": "^0.45.2",
     "hono": "^4.8.3",
+    "postgres": "^3.4.9",
     "zod": "^3.25.67"
   },
   "devDependencies": {
     "@types/node": "^22.15.32",
+    "drizzle-kit": "^0.31.10",
     "tsx": "^4.20.3",
     "typescript": "^5.8.3"
   }

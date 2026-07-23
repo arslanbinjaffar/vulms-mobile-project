@@ -41,6 +41,12 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "owner": "arslanjaffarpixelpks-team",
+    "extra": {
+      "eas": {
+        "projectId": "4344eab1-c68a-43e8-85ef-5003cb66c1a1"
+      }
     }
   }
 }

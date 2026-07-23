@@ -11,10 +11,13 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       ...(config.extra ?? {}),
       apiUrl,
       eas: {
-        ...(typeof config.extra?.eas === "object" && config.extra?.eas
-          ? config.extra.eas
-          : {}),
-        projectId: process.env.EAS_PROJECT_ID,
+        projectId:
+          process.env.EAS_PROJECT_ID ??
+          (typeof config.extra?.eas === "object" &&
+          config.extra?.eas &&
+          "projectId" in config.extra.eas
+            ? String((config.extra.eas as { projectId?: string }).projectId ?? "")
+            : "4344eab1-c68a-43e8-85ef-5003cb66c1a1"),
       },
     },
   };

@@ -9,6 +9,9 @@
       "distribution": "internal",
       "android": {
         "buildType": "apk"
+      },
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://vulms-mobile-project-api.vercel.app"
       }
     },
     "preview": {
@@ -17,15 +20,16 @@
         "buildType": "apk"
       },
       "env": {
-        "EXPO_PUBLIC_API_URL": "https://YOUR-PROJECT.vercel.app"
+        "EXPO_PUBLIC_API_URL": "https://vulms-mobile-project-api.vercel.app"
       }
     },
     "production": {
+      "distribution": "internal",
       "android": {
-        "buildType": "app-bundle"
+        "buildType": "apk"
       },
       "env": {
-        "EXPO_PUBLIC_API_URL": "https://YOUR-PROJECT.vercel.app"
+        "EXPO_PUBLIC_API_URL": "https://vulms-mobile-project-api.vercel.app"
       }
     }
   },

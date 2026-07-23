@@ -4,6 +4,23 @@
   "outputDirectory": null,
   "installCommand": "cd ../.. && pnpm install",
   "buildCommand": "pnpm typecheck && node ../../scripts/bundle-vercel-api.mjs && mkdir -p public",
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET,OPTIONS,PATCH,DELETE,POST,PUT"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type, Authorization, X-Requested-With"
+        },
+        { "key": "Access-Control-Max-Age", "value": "86400" }
+      ]
+    }
+  ],
   "rewrites": [
     {
       "source": "/(.*)",
